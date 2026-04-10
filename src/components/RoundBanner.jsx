@@ -20,7 +20,7 @@ export default function RoundBanner({ players, round, totalRounds, onDeclareWinn
             return (
               <span key={pi} className={styles.matchupEntry}>
                 <span className={styles.matchupPlayer} style={{ color: col.text }}>
-                  {char?.icon} {p.name}
+                  <img src={char?.icon} height="20px"></img> {p.name}
                 </span>
                 <span className={styles.matchupChar}>({char?.name})</span>
                 {pi < players.length - 1 && (

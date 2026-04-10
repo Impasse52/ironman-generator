@@ -8,17 +8,22 @@
 }
 
 .header::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--roa-accent), var(--roa-accent2), var(--roa-gold));
+  background: linear-gradient(
+    90deg,
+    var(--roa-accent),
+    var(--roa-accent2),
+    var(--roa-gold)
+  );
 }
 
 .title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: clamp(2rem, 6vw, 3.5rem);
   letter-spacing: 4px;
   color: var(--roa-text);
@@ -40,6 +45,16 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-top: 8px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 600;
+}
+
+.gametitle {
+  color: var(--roa-muted);
+  font-size: 23px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 600;
 }

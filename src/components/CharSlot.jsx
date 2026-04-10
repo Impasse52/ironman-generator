@@ -10,7 +10,7 @@ export default function CharSlot({ char, index, status }) {
         {char.image ? (
           <img src={char.image} alt={char.name} className={styles.img} />
         ) : (
-          <span className={styles.icon}>{char.icon}</span>
+          <span className={styles.icon}><img src={char.icon} height="45px"></img></span>
         )}
         <span className={styles.name}>{char.name}</span>
       </div>
