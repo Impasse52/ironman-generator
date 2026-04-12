@@ -12,6 +12,7 @@ export const ROA2_CHARS = [
   { id: 'olympia', name: 'Olympia', icon: './icons/roa2/Olympia.png' },
   { id: 'orcane', name: 'Orcane', icon: './icons/roa2/Orcane.png' },
   { id: 'ranno', name: 'Ranno', icon: './icons/roa2/Ranno.png' },
+  { id: 'slade', name: 'Slade', icon: './icons/roa2/Slade.png' },
   { id: 'wrastor', name: 'Wrastor', icon: './icons/roa2/Wrastor.png' },
   { id: 'zetterburn', name: 'Zetterburn', icon: './icons/roa2/Zetterburn.png' },
 ];
@@ -28,6 +29,7 @@ export const SSBM_CHARS = [
   { id: 'jigglypuff', name: 'Jigglypuff', icon: './icons/ssbm/jigglypuff.png' },
   { id: 'kirby', name: 'Kirby', icon: './icons/ssbm/kirby.png' },
   { id: 'link', name: 'Link', icon: './icons/ssbm/link.png' },
+  { id: 'luigi', name: 'Luigi', icon: './icons/ssbm/luigi.png' },
   { id: 'mario', name: 'Mario', icon: './icons/ssbm/mario.png' },
   { id: 'marth', name: 'Marth', icon: './icons/ssbm/marth.png' },
   { id: 'mewtwo', name: 'Mewtwo', icon: './icons/ssbm/mewtwo.png' },
