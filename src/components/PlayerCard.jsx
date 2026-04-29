@@ -33,26 +33,7 @@ export default function PlayerCard({ player, playerIndex, round, totalRounds, ge
             placeholder={`Player ${playerIndex + 1}`}
             onChange={(e) => onRename(playerIndex, e.target.value)}
           />
-            {doublesEnabled && (
-    <button
-      onClick={() => onSwapTeam(playerIndex)}
-      title="Swap team"
-      style={{
-        background: 'transparent',
-        border: `1px solid ${col.border}`,
-        color: col.text,
-        borderRadius: '4px',
-        padding: '2px 7px',
-        cursor: 'pointer',
-        fontSize: '11px',
-        fontFamily: "'Barlow Condensed', sans-serif",
-        fontWeight: 700,
-        letterSpacing: '1px',
-      }}
-    >
-      ⇄
-    </button>
-  )}
+  
         </div>
         <div className={styles.scoreBox}>
           <div className={styles.scoreNums} style={{ color: col.text }}>
