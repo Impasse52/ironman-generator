@@ -1,3 +1,8 @@
+export const TEAM_COLORS = [
+  { bg: 'rgba(232,69,69,0.18)', border: '#e84545', text: '#e84545', label: 'T1' }, // Team 1 (P1+P2)
+  { bg: 'rgba(74,158,255,0.18)', border: '#4a9eff', text: '#4a9eff', label: 'T2' }, // Team 2 (P3+P4)
+];
+
 export const ROA2_CHARS = [
   { id: 'absa', name: 'Absa', icon: './icons/roa2/Absa.png' },
   { id: 'clairen', name: 'Clairen', icon: './icons/roa2/Clairen.png' },

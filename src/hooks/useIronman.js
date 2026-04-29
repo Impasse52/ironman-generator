@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ROA2_CHARS, SSBM_CHARS } from '../data/characters';
+import { ROA2_CHARS, SSBM_CHARS, TEAM_COLORS } from '../data/characters';
 import { shuffle } from '../utils/shuffle';
 
 function makePlayers(count) {
@@ -16,18 +16,47 @@ export function useIronman() {
   const [generated, setGenerated] = useState(false);
   const [round, setRound] = useState(0);
   const [mode, setMode] = useState(0);
+  const [teamsEnabled, setTeams] = useState(false);
+
+  const [doublesEnabled, setDoublesEnabled] = useState(false);
+  const [teamAssignments, setTeamAssignments] = useState([0, 0, 1, 1]); // index into TEAM_COLORS per player
+
+  const toggleDoubles = useCallback(() => {
+    setDoublesEnabled(prev => {
+      const next = !prev;
+      if (next) {
+        setPlayerCountState(4);
+        setPlayers(makePlayers(4));
+      }
+      setGenerated(false);
+      setRound(0);
+      return next;
+    });
+  }, []);
+
+  const swapTeamColor = useCallback((pi) => {
+    setTeamAssignments(prev => {
+      const next = [...prev];
+      next[pi] = next[pi] === 0 ? 1 : 0;
+      return next;
+    });
+  }, []);
 
   let characters = ROA2_CHARS;
 
   if (mode == 0) { characters = ROA2_CHARS }
   else if (mode == 1) { characters = SSBM_CHARS }
 
+  const toggleTeamsEnabled = useCallback(() => {
+    setTeams(prev => !prev);
+  }, []);
 
   const setPlayerCount = useCallback((n) => {
     setPlayerCountState(n);
     setPlayers(makePlayers(n));
     setGenerated(false);
     setRound(0);
+    setDoublesEnabled(false);
   }, []);
 
   const generate = useCallback(() => {
@@ -51,13 +80,18 @@ export function useIronman() {
       setPlayers((prev) =>
         prev.map((p, pi) => {
           const results = [...p.results];
-          results[round] = pi === winnerIdx ? 'win' : 'lose';
+          if (doublesEnabled) {
+            const winnerTeam = teamAssignments[winnerIdx];
+            results[round] = teamAssignments[pi] === winnerTeam ? 'win' : 'lose';
+          } else {
+            results[round] = pi === winnerIdx ? 'win' : 'lose';
+          }
           return { ...p, results };
         })
       );
       setRound((r) => r + 1);
     },
-    [round]
+    [round, doublesEnabled, teamAssignments]
   );
 
   const undoRound = useCallback(() => {
@@ -84,6 +118,15 @@ export function useIronman() {
 
   const overallLeader = isDone
     ? (() => {
+      if (doublesEnabled) {
+        const teamWins = [0, 0];
+        players.forEach((p, pi) => {
+          teamWins[teamAssignments[pi]] += p.results.filter(r => r === 'win').length;
+        });
+        const winningTeam = teamWins[0] >= teamWins[1] ? 0 : 1;
+        const teamPlayers = players.filter((_, pi) => teamAssignments[pi] === winningTeam).map(p => p.name);
+        return { name: teamPlayers.join(' & '), wins: Math.max(...teamWins) };
+      }
       const wins = players.map((p) => p.results.filter((r) => r === 'win').length);
       const max = Math.max(...wins);
       return { name: players[wins.indexOf(max)].name, wins: max };
@@ -106,5 +149,11 @@ export function useIronman() {
     renamePlayer,
     mode,
     setMode,
+    teamsEnabled,
+    toggleTeamsEnabled,
+    doublesEnabled,
+    toggleDoubles,
+    teamAssignments,
+    swapTeamColor,
   };
 }

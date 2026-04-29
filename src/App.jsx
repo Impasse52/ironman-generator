@@ -24,6 +24,12 @@ export default function App() {
     renamePlayer,
     mode,
     setMode,
+    teamsEnabled,
+    toggleTeams,
+    doublesEnabled,
+    toggleDoubles,
+    teamAssignments,
+    swapTeamColor,
   } = useIronman();
 
   return (
@@ -39,6 +45,10 @@ export default function App() {
         onGenerate={generate}
         onReset={reset}
         generated={generated}
+        teamsEnabled={teamsEnabled}
+        toggleTeams={toggleTeams}
+        doublesEnabled={doublesEnabled}
+        toggleDoubles={toggleDoubles}
       />
 
       <Legend />
@@ -50,6 +60,8 @@ export default function App() {
           totalRounds={totalRounds}
           onDeclareWinner={declareWinner}
           onUndo={undoRound}
+          doublesEnabled={doublesEnabled}
+          teamAssignments={teamAssignments}
         />
       )}
 
@@ -67,6 +79,9 @@ export default function App() {
             totalRounds={totalRounds}
             generated={generated}
             onRename={renamePlayer}
+            doublesEnabled={doublesEnabled}
+            teamAssignments={teamAssignments}
+            onSwapTeam={swapTeamColor}
           />
         ))}
       </div>

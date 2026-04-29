@@ -10,7 +10,7 @@
 }
 
 .label {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   color: var(--roa-muted);
   letter-spacing: 1px;
@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 
 .countBtn.active {
@@ -46,7 +46,7 @@
 }
 
 .btnPrimary {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -70,7 +70,7 @@
 }
 
 .btnSecondary {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -87,4 +87,37 @@
 .btnSecondary:hover {
   border-color: var(--roa-muted);
   color: var(--roa-text);
+}
+
+.enabled {
+  border-color: var(--roa-gold);
+  background: rgba(245, 166, 35, 0.12);
+  box-shadow: 0 0 0 1px rgba(245, 166, 35, 0.3);
+}
+
+.toggleBtn {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid var(--roa-border);
+  background: var(--roa-card);
+  color: var(--roa-muted);
+  font-size: 13px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.toggleBtn:hover:not(.toggleActive) {
+  border-color: var(--roa-muted);
+  color: var(--roa-text);
+}
+
+.toggleActive {
+  border-color: var(--roa-gold);
+  color: var(--roa-gold);
+  background: rgba(245, 166, 35, 0.1);
 }
