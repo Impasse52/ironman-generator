@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { ROA2_CHARS, SSBM_CHARS, TEAM_COLORS } from '../data/characters';
 import { shuffle } from '../utils/shuffle';
-
+import { useLocalStorage } from './useLocalStorage';
 function makePlayers(count) {
   return Array.from({ length: count }, (_, i) => ({
     name: `Player ${i + 1}`,
@@ -11,15 +11,13 @@ function makePlayers(count) {
 }
 
 export function useIronman() {
-  const [playerCount, setPlayerCountState] = useState(2);
-  const [players, setPlayers] = useState(() => makePlayers(2));
-  const [generated, setGenerated] = useState(false);
-  const [round, setRound] = useState(0);
-  const [mode, setMode] = useState(0);
-  const [teamsEnabled, setTeams] = useState(false);
-
-  const [doublesEnabled, setDoublesEnabled] = useState(false);
-  const [teamAssignments, setTeamAssignments] = useState([0, 0, 1, 1]); // index into TEAM_COLORS per player
+  const [playerCount, setPlayerCountState] = useLocalStorage('im_playerCount', 2);
+  const [players, setPlayers] = useLocalStorage('im_players', makePlayers(2));
+  const [generated, setGenerated] = useLocalStorage('im_generated', false);
+  const [round, setRound] = useLocalStorage('im_round', 0);
+  const [mode, setMode] = useLocalStorage('im_mode', 0);
+  const [doublesEnabled, setDoublesEnabled] = useLocalStorage('im_doubles', false);
+  const [teamAssignments, setTeamAssignments] = useLocalStorage('im_teams', [0, 0, 1, 1]);
 
   const toggleDoubles = useCallback(() => {
     setDoublesEnabled(prev => {
@@ -42,10 +40,14 @@ export function useIronman() {
     });
   }, []);
 
-  let characters = ROA2_CHARS;
 
-  if (mode == 0) { characters = ROA2_CHARS }
-  else if (mode == 1) { characters = SSBM_CHARS }
+  // Replace the bare characters derivation with:
+  const characters = useMemo(() => {
+    if (mode === 0) return ROA2_CHARS;
+    if (mode === 1) return SSBM_CHARS;
+    return ROA2_CHARS;
+  }, [mode]);
+
 
   const toggleTeamsEnabled = useCallback(() => {
     setTeams(prev => !prev);
@@ -69,7 +71,7 @@ export function useIronman() {
 
   const reset = useCallback(() => {
     setPlayers((prev) =>
-      prev.map((p) => ({ ...p, sequence: [], results: [] }))
+      prev.map((p, i) => ({ ...p, name: `Player ${i + 1}`, sequence: [], results: [] }))
     );
     setGenerated(false);
     setRound(0);
@@ -149,7 +151,6 @@ export function useIronman() {
     renamePlayer,
     mode,
     setMode,
-    teamsEnabled,
     toggleTeamsEnabled,
     doublesEnabled,
     toggleDoubles,
