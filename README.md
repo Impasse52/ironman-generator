@@ -14,7 +14,9 @@ Every player gets a shuffled order of the full roster. After each match, pick th
 - **Reset All** clears sequences, results, and player names
 
 ## Getting started
+You can use the webapp here: [click](https://impasse52.github.io/ironman-generator/).
 
+For debugging purposes:
 ```bash
 npm install
 npm run dev
